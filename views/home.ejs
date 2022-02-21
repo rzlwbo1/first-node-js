@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <title>Makan itu Simple</title>
+</head>
+<body>
+
+  <!-- <a href="/admin">ke admin</a> -->
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">Makan Itu Simple</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="resep-makanan mt-5">
+      <div class="container">
+        <h2>Resep Terbaru</h2>
+
+        <div class="reseps mt-5">
+          <div class="row row-cols-1 row-cols-md-3 gy-3">
+
+            <% for (let resep of allRecipes) { %>
+              <div class="col">
+                <div class="card">
+                  <div class="card-body">
+                    <h3 class="card-title"><%= resep.judulResep %></h3>
+                    <p class="card-text"><%= resep.deskripsi.slice(0, 200) %></p>
+                    <h5>Bahan - bahan</h5>
+                    <p class="card-text"><%= resep.bahan_1 %></p>
+                    <p class="card-text"><%= resep.bahan_2 %></p>
+                    <a href="/detail/<%= resep.judulResep.split(" ").join("-") %>" class="btn btn-primary">Lihat detail</a>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+
+  <footer class="position-fixed bottom-0 bg-light text-success text-center p-3 w-100">
+    <p>&copy; 2022 Node JS Express | Rizal Wibowo</p>
+  </footer>
+  <script>
+    // let tes = "bebek-goreng";
+
+    // let res = tes.split("-").join(" ");
+    // console.log(res);
+    
+  </script>
+</body>
+</html>

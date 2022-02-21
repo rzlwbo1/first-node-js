@@ -1,0 +1,9 @@
+Fitur Create data dan read data
+
+Web resep Makanan
+
+Fitur
+
+- input resep makanan di admin
+- get data resep di home
+- detail resep makanan di home
