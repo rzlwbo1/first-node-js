@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const _ = require("loadsh");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,10 +20,11 @@ let toastNotif = false;
 
 ///// Recipes /////
 
-const recipes = [
+let recipes = [
   {
     judulResep: 'Ayam Geprek Pedas',
     deskripsi: 'Sambal geprek ayam ini pedasnya bikin lidah terbakar. Yuk, buktikan sendiri kelezatannya untuk santap di rumah hari ini! Mari simak resepnya berikut ini!',
+    slug: _.kebabCase('Ayam Geprek Pedas'),
     bahan_1: '4 filet dada ayam tidak putus',
     bahan_2: '½ sdt merica putih bubuk',
     bahan_3: '1 sdt garam',
@@ -51,8 +53,11 @@ app.get("/admin", (req, res) => {
 
 app.post("/admin", (req, res) => {
 
-  const recipe = req.body;
-  recipes.push(recipe);
+  // destructring input form
+  const {judulResep, deskripsi,  ...bahan} = req.body; 
+
+  // push ke array bentuk object, dan buat slug
+  recipes.push({judulResep, deskripsi, ...bahan, slug: _.kebabCase(judulResep)});
   
   setTimeout(() => {
     res.render("admin");
@@ -69,12 +74,23 @@ app.post("/admin", (req, res) => {
 app.get('/detail/:resepDetail', (req, res) => {
 
   // ambil params buat title
-  const {resepDetail} = req.params;
+  let resepDetail = _.lowerCase(req.params.resepDetail);
 
-  res.render('detail', {
-    allRecipes: recipes,
-    param: resepDetail
-  })
+  // loop recipes buat cari resep yg sama dgn param
+  recipes.forEach((recipe) => {
+    let resepTitle = _.lowerCase(recipe.judulResep);
+
+    // cocokkin dan render
+    if(resepDetail === resepTitle) {
+      res.render('detail', {
+        resep: recipe
+      })
+      // console.log("match");
+      // console.log(recipe);
+    }
+
+  });
+  
 })
 
 
