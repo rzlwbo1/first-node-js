@@ -14,7 +14,7 @@
       <div class="row">
         <div class="col-sm-10">
           <!-- Destruture biar gampang -->
-          <% const {id, judulResep, deskripsi, slug, ...allBahan} = resep; %>
+          <% const {id, judulResep, deskripsi, slug, bahans} = resep; %>
           <h1><%= judulResep %></h1>
           <div class="row content">
             <div class="col">
@@ -22,8 +22,8 @@
               <hr>
               <h3>Bahan - bahan</h3>
               <ul>
-              <% for (const bahan in allBahan) { %>
-                <li><%= allBahan[bahan] %></li>
+              <% for (const bahan of bahans) { %>
+                <li><%= bahan %></li>
               <% } %>
               </ul>
             </div>

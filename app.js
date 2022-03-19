@@ -98,7 +98,7 @@ app.get('/detail/:resepDetail', (req, res) => {
         resep: recipe
       })
       // console.log("match");
-      // console.log(recipe);
+      console.log(recipe);
     }
 
   });
