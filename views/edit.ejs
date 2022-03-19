@@ -1,18 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
   <title>Edit resep</title>
 </head>
-<body>
 
-  <h2>Edit resep</h2>
+<body class="m-4">
 
-  <form action="">
-    <input type="text" placeholder="judul resep" value="<%= recipeEdit.judulResep %>">
-  </form>
+  <main>
+    <div class="container">
+      <h2>Edit resep</h2>
+      <hr>
+
+      <% const {id, judulResep, deskripsi, slug, bahans} = recipeEdit %> 
+
+      <form action="/update-resep/<%=id%>?_method=PATCH" method="post" class="form-resep">
+        <div class="form-floating my-3">
+          <input type="text" class="form-control" id="floatingInput" placeholder="Judul Resep" name="judulResep" value="<%=judulResep%>"
+            required>
+          <label for="floatingInput">Judul Resep</label>
+        </div>
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="deskripsi"
+            style="height: 100px"  required><%= deskripsi %></textarea>
+          <label for="floatingTextarea2">Deskripsi</label>
+        </div>
+        <div class="bahan-masakan">
+          <h4 class="mt-3 mb-1">Bahan - bahan</h4>
+          <small>Isi bahan bahan disini</small>
+          <% for(let bahan of bahans) { %>
+            <div class="form-floating my-3">
+              <input type="text" class="form-control" id="floatingInput" placeholder="bahan" name="bahans" value="<%=bahan%>" required>
+              <label for="floatingInput">bahan</label>
+            </div>
+          <% } %>
+        </div>
+        <button class="btn btn-primary btn-bahan" type="button">Tambah Bahan +</button>
+
+        <div class="submit my-5">
+          <button type="submit" class="btn btn-success btn-simpan" id="alertToastBtn">Simpan
+            resep</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
   
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+  //// Add Bahan ///
+  let totalBahan = 2;
+  const btnBahan = document.querySelector(".btn-bahan");
+  let bahanContainer = document.querySelector(".bahan-masakan");
+
+  btnBahan.addEventListener("click", function (evt) {
+
+    let divForm = document.createElement("div");
+    divForm.className = "form-floating my-3";
+
+    let input = document.createElement("input");
+    input.type = 'text';
+    input.className = 'form-control';
+    input.id = 'floatingInput';
+    input.name = `bahans`;
+    input.placeholder =
+      input.required = true;
+
+    let label = document.createElement("label");
+    label.setAttribute("for", 'floatingInput')
+    label.innerHTML = `Bahan-${totalBahan}`
+
+    // append
+    divForm.append(input, label)
+    bahanContainer.append(divForm)
+
+    totalBahan++;
+  });
+
+
+
+  </script>
 </body>
+
 </html>

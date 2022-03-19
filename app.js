@@ -113,9 +113,34 @@ app.get("/detail/:resepDetail/:id/edit", (req, res) => {
   let recipeEdit = recipes.find((rec) => rec.id == id);
 
   res.render("edit", {recipeEdit})
-  res.send("ok")
+  // res.send("ok")
 })
 
+
+// UPDATE PUT
+app.patch("/update-resep/:id", (req, res) =>{
+
+  const {id} = req.params;
+  const {judulResep, deskripsi, bahans} = req.body;
+  let slug = _.kebabCase(judulResep);
+
+  recipes.forEach((recipe, i) => {
+    
+    if(recipe.id === id) {
+      recipe.judulResep = judulResep;
+      recipe.deskripsi = deskripsi;
+      recipe.bahans = bahans;
+      recipe.slug = slug
+
+      res.redirect("/")
+      // console.log(recipe);
+    }
+
+  })
+
+  // console.log(recipes);
+
+})
 
 
 app.listen(PORT, () => {
