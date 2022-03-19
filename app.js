@@ -39,6 +39,23 @@ let recipes = [
       '1 butir telur ayam, kocok lepas',
       'minyak, untuk menggoreng'
     ]
+  },
+  {
+    id: uuidv4(),
+    judulResep: 'Nasi Goreng Kari',
+    deskripsi: 'Bahan2 dengan takaran secukupnya dan sesuai selera ya 😁Karna nggak tau kalian mau masak buat sendiri atau buat rame2',
+    slug: _.kebabCase('Nasi Goreng Kari'),
+    bahans: [
+      'nasi',
+      'Wortel',
+      'Sawi putih',
+      'Dada ayam',
+      'telur',
+      'Minyak wijen',
+      'kecap asin',
+      'Merica bubuk',
+      'Bubuk Kari'
+    ]
   }
 ];
 
