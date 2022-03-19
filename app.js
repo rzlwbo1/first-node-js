@@ -32,11 +32,13 @@ let recipes = [
     judulResep: 'Ayam Geprek Pedas',
     deskripsi: 'Sambal geprek ayam ini pedasnya bikin lidah terbakar. Yuk, buktikan sendiri kelezatannya untuk santap di rumah hari ini! Mari simak resepnya berikut ini!',
     slug: _.kebabCase('Ayam Geprek Pedas'),
-    bahan_1: '4 filet dada ayam tidak putus',
-    bahan_2: '½ sdt merica putih bubuk',
-    bahan_3: '1 sdt garam',
-    bahan_4: '1 butir telur ayam, kocok lepas',
-    bahan_5: 'minyak, untuk menggoreng'
+    bahans: [
+      '4 filet dada ayam tidak putus',
+      '½ sdt merica putih bubuk',
+      '1 sdt garam',
+      '1 butir telur ayam, kocok lepas',
+      'minyak, untuk menggoreng'
+    ]
   }
 ];
 
@@ -64,7 +66,7 @@ app.get("/admin", (req, res) => {
 app.post("/admin", (req, res) => {
 
   // destructring input form
-  const {judulResep, deskripsi,  ...bahan} = req.body; 
+  const {judulResep, deskripsi, ...bahan} = req.body; 
 
   // push ke array bentuk object, dan buat slug
   recipes.push({id: uuidv4(), judulResep, deskripsi, ...bahan, slug: _.kebabCase(judulResep)});

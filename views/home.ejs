@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <title>Makan itu Simple</title>
 </head>
-<body>
+<body style="min-height:1000px;">
 
   <!-- <a href="/admin">ke admin</a> -->
 
@@ -51,8 +51,9 @@
                     <h3 class="card-title"><%= resep.judulResep %></h3>
                     <p class="card-text"><%= resep.deskripsi.slice(0, 200) %></p>
                     <h5>Bahan - bahan</h5>
-                    <p class="card-text"><%= resep.bahan_1 %></p>
-                    <p class="card-text"><%= resep.bahan_2 %></p>
+                    <% for(let i=0; i<2; i++) { %>
+                      <p class="card-text"><%= resep.bahans[i] %></p>
+                    <% } %>
                     <a href="/detail/<%= resep.slug %>" class="btn btn-primary">Lihat detail</a>
                   </div>
                 </div>
