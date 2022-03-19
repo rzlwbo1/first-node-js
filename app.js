@@ -1,12 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const methodOverride = require('method-override');
 const _ = require("loadsh");
+const { v4: uuidv4 } = require('uuid');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // set view engine
 app.set("view engine", 'ejs');
+app.set("views", __dirname + "/views")
 
 // use body request
 app.use(bodyParser.urlencoded({extended: true}));
@@ -14,6 +18,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 // use static
 app.use(express.static(__dirname+"/public"));
 
+// method override
+app.use(methodOverride('_method'));
 
 let toastNotif = false;
 
@@ -22,6 +28,7 @@ let toastNotif = false;
 
 let recipes = [
   {
+    id: uuidv4(),
     judulResep: 'Ayam Geprek Pedas',
     deskripsi: 'Sambal geprek ayam ini pedasnya bikin lidah terbakar. Yuk, buktikan sendiri kelezatannya untuk santap di rumah hari ini! Mari simak resepnya berikut ini!',
     slug: _.kebabCase('Ayam Geprek Pedas'),
@@ -37,8 +44,10 @@ let recipes = [
 ///// Recipes end /////
 
 
-// Routes //
+//// Routes /////
 
+
+// READ
 app.get("/", (req, res) => {
   res.render("home", {
     allRecipes: recipes
@@ -51,13 +60,14 @@ app.get("/admin", (req, res) => {
 })
 
 
+// CREATE FORM
 app.post("/admin", (req, res) => {
 
   // destructring input form
   const {judulResep, deskripsi,  ...bahan} = req.body; 
 
   // push ke array bentuk object, dan buat slug
-  recipes.push({judulResep, deskripsi, ...bahan, slug: _.kebabCase(judulResep)});
+  recipes.push({id: uuidv4(), judulResep, deskripsi, ...bahan, slug: _.kebabCase(judulResep)});
   
   setTimeout(() => {
     res.render("admin");
@@ -70,7 +80,7 @@ app.post("/admin", (req, res) => {
 })
 
 
-
+// READ DETAILS
 app.get('/detail/:resepDetail', (req, res) => {
 
   // ambil params buat title
@@ -91,6 +101,17 @@ app.get('/detail/:resepDetail', (req, res) => {
 
   });
   
+});
+
+
+// UPDATE GET
+app.get("/detail/:resepDetail/:id/edit", (req, res) => {
+  const {resepDetail, id} = req.params;
+
+  let recipeEdit = recipes.find((rec) => rec.id == id);
+
+  res.render("edit", {recipeEdit})
+  res.send("ok")
 })
 
 
