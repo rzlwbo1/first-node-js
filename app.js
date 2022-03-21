@@ -94,7 +94,7 @@ app.post("/admin", (req, res) => {
 
   // res.redirect("/admin");
 
-  console.log(recipes);
+  // console.log(recipes);
 
 })
 
@@ -158,6 +158,29 @@ app.patch("/update-resep/:id", (req, res) =>{
   // console.log(recipes);
 
 })
+
+
+// DELETE
+app.delete("/delete/:id", (req, res) => {
+
+  const {id} = req.params;
+
+  recipes.forEach((rec, i) => {
+
+    if(rec.id === id) {
+      recipes.splice(i, 1);
+
+      res.redirect('/')
+      // console.log(recipes);
+      // console.log('deleted');
+    }
+
+  })
+
+
+})
+
+
 
 
 app.listen(PORT, () => {

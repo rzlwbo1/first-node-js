@@ -30,8 +30,11 @@
           </div>
         </div>
 
-        <div class="col-sm-auto">
+        <div class="col-sm-auto d-flex flex-column">
           <a href="/detail/<%= resep.slug %>/<%= resep.id %>/edit" class="btn btn-warning">Edit resep</a>
+         <form action="/delete/<%=resep.id%>?_method=DELETE" method="post">
+          <button type="submit" class="btn btn-danger mt-3">Hapus Resep</button>
+         </form>
         </div>
       </div>
     </div>
